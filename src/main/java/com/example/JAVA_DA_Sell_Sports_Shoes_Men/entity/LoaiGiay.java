@@ -7,43 +7,41 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Sanpham")
+@Table(name = "Loaigiay")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class SanPham {
 
+public class LoaiGiay {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "Id")
     UUID id;
 
-    @Column(name = "Masanpham")
+    @Column(name = "Ma")
     @NotBlank(message = "Không để trống")
-    String maSanPham;
+    String ma;
 
-    @Column(name = "Tensanpham")
+    @Column(name = "Tentheloai")
     @NotBlank(message = "Không để trống")
-    String tenSanPham;
+    String tenTheLoai;
 
     @Column(name = "Createdate")
-//    @NotNull(message = "Không để trống")
-//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+
     LocalDateTime createDate;
 
     @Column(name = "Lastmodifileddate")
-//    @NotNull(message = "Không để trống")
-//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+
     LocalDateTime lastModifiedDate;
 
     @Column(name = "Trangthai")
     @NotNull(message = "Không để trống")
     Integer trangThai;
-
 }
