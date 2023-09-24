@@ -1,0 +1,55 @@
+package com.example.JAVA_DA_Sell_Sports_Shoes_Men.service.impl;
+
+import com.example.JAVA_DA_Sell_Sports_Shoes_Men.entity.NguoiDung;
+import com.example.JAVA_DA_Sell_Sports_Shoes_Men.repository.NguoiDungRepository;
+import com.example.JAVA_DA_Sell_Sports_Shoes_Men.service.NguoiDungService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+@Service
+public class NguoiDungServiceImpl implements NguoiDungService {
+    @Autowired
+    NguoiDungRepository ndRepo;
+    @Override
+    public List<NguoiDung> getAll() {
+        return ndRepo.findAll();
+    }
+
+    @Override
+    public NguoiDung getObject(String id) {
+        UUID uuid = UUID.fromString(id);
+        Optional<NguoiDung> ndOpt = ndRepo.findById(uuid);
+        if(ndOpt.isPresent()) {
+            return ndOpt.get();
+        }
+        return null;
+    }
+
+    @Override
+    public NguoiDung save(NguoiDung nd) {
+        return ndRepo.save(nd);
+    }
+
+    @Override
+    public String delete(String id) {
+        UUID uuid = UUID.fromString(id);
+        Boolean isNd = ndRepo.existsById(uuid);
+        if (isNd){
+            ndRepo.deleteById(uuid);
+            return uuid.toString();
+        }
+        return null;
+    }
+
+    @Override
+    public NguoiDung update(NguoiDung nd) {
+        Boolean isChucVu = ndRepo.existsById(nd.getId());
+        if (isChucVu){
+            return ndRepo.save(nd);
+        }
+        return null;
+    }
+}
